@@ -14,11 +14,17 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- normal mode, format current buffer
+vim.keymap.set("n", "<leader>f", function()
+  vim.lsp.buf.format()
+end, { desc = "Format code" })
+
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("pyright")
 vim.lsp.enable("jdtls")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("angularls")
+vim.lsp.enable("clangd");
 
 require("vim-options")
 require("lazy").setup("plugins")
