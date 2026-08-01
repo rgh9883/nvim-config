@@ -28,6 +28,7 @@ vim.lsp.enable("ts_ls")
 vim.lsp.enable("angularls")
 vim.lsp.enable("clangd")
 vim.lsp.enable("prolog")
+vim.lsp.enable("rust_analyzer")
 
 require("vim-options")
 require("lazy").setup("plugins")
