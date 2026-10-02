@@ -14,6 +14,8 @@ end, { desc = "Format code" })
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.cursorline = true
+vim.opt.winblend = 10
+vim.opt.pumblend = 10
 
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.
