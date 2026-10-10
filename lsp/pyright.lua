@@ -58,6 +58,20 @@ return {
       },
     },
   },
+  -- Use the project's uv-managed .venv (or an activated $VIRTUAL_ENV) so
+  -- pyright resolves packages installed there instead of global ones.
+  before_init = function(_, config)
+    local venv = config.root_dir and vim.fs.joinpath(config.root_dir, '.venv')
+    if not (venv and vim.uv.fs_stat(venv)) then
+      venv = vim.env.VIRTUAL_ENV
+    end
+    local python = venv and vim.fs.joinpath(venv, 'bin', 'python')
+    if python and vim.uv.fs_stat(python) then
+      -- Mutate in place: the client holds a reference to this settings table.
+      config.settings.python = config.settings.python or {}
+      config.settings.python.pythonPath = python
+    end
+  end,
   on_attach = function(client, bufnr)
     vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightOrganizeImports', function()
       local params = {
